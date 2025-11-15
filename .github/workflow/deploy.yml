@@ -1,0 +1,38 @@
+name: Deploy React App to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build React Project
+        run: npm run build
+
+      # ⚠ If using Vite, this is correct ("dist")
+      - name: Deploy Build to Hostinger via FTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.4.1
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASS }}
+          local_path: "./dist/"    # for Vite (React Vite)
+          remote_path: "/domains/deepconnection.life/public_html/"
+          delete_remote_files: true
+          exclude: ".gitignore"
+          
