@@ -17,6 +17,7 @@ const App = () => {
   const handleOrderPopup = () => {
     setOrderPopup(!orderPopup);
   };
+  
   React.useEffect(() => {
     AOS.init({
       offset: 100,
