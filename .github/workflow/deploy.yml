@@ -3,7 +3,7 @@ name: Deploy React App to Hostinger
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -35,4 +35,3 @@ jobs:
           remote_path: "/domains/deepconnection.life/public_html/"
           delete_remote_files: true
           exclude: ".gitignore"
-          
